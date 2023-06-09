@@ -16,7 +16,7 @@ typedef struct	s_data {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
-	int		line_length;
+	int		line_length; //in bytes (int = 4 bytes)
 	int		endian;
 }				t_img;
 
@@ -33,18 +33,18 @@ int	main(void)
 	void	*mlx;
 	void	*mlx_win;
 	t_img	img;
-	int		x = 10;
-	int		y = 10;
+	int		x = 0;
+	int		y = 0;
 
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	img.img = mlx_new_image(mlx, 1920, 1080);
+	img.img = mlx_new_image(mlx, 1, 1);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	
 	// square
-	while ( x < 110)
+	while ( x < 2)
 	{
-		while (y < 110)
+		while (y < 2)
 			my_mlx_pixel_put(&img, x, y++, 0x00FFFFFF);
 		y = 10;
 		++x;

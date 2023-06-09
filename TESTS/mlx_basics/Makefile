@@ -1,4 +1,4 @@
-NAME := test.out
+NAME := a.out
 
 SRCS := 1main.c
 
