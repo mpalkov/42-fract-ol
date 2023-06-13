@@ -12,17 +12,47 @@
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
+# include "mlx.h"
+# include "./libft/libft.h"
 
-enum
+// GENERAL VALUES DEFINITIONS
+	// mlx window width
+# define WIN_W 800
+	// mlx window height
+# define WIN_H 800
+	// mlx window title
+# define WIN_NAME "fractol_42"
+# define NOARGSMSG "This program requires arguments on input.\n\n \
+execution: ./fractol <fractalname> <otherargs>\n\n \
+<fractalname>:\n \
+mandelbrot\n \
+julia\n"
+# define WRITEMSG "writing error."
+# define MALLOCMSG "malloc error."
+# define MLXMSG "mlx error."
+# define INITMSG "initialization error."
+
+enum errs
 {
+	OK,
 	NOARGS,
 	INPUTERR,
 	WRITEERR,
 	MALLOCERR,
 	MLXERR,
+	INITERR
 }
 
-typedef struct s_img
+enum fractls
+{
+	MANDELBROT,
+	JULIA,
+	BURNINGSHIP
+}
+
+typedef;
+
+typedef struct	s_img
 {
 	void	*img;
 	char	*addr;
@@ -31,12 +61,19 @@ typedef struct s_img
 	int		endian;
 }				t_img;
 
-typedef struct	s_environment
+typedef struct	s_env
 {
-	int		errno;
 	void	*mlx;
 	void	*win;
 	t_img	*img;
-}
+	int		errno;
+	int		fractsel;
+	int		param;
+	int		zoom;
+	int		mouse_x;
+	int		mouse_y;
+}				t_env;
+
+void	ft_exit(int err, t_enviro *env);
 
 #endif
