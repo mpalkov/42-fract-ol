@@ -21,11 +21,17 @@ void	ft_printerr(errno)
 	return ;
 }
 
-void	ft_exit(int err, t_enviro *env)
+void	ft_freeall(t_env *env)
+{
+	mlx_destroy_image(env->mlx, env->img);
+	mlx_destroy_window(env->mlx, env->win);
+	return ;
+}
+
+void	ft_exit(int err, t_env *env)
 {
 	env->errno = err;
-	// CREATE THIS FN
-	// ft_freeall();
+	ft_freeall(env);
 	ft_printerr(err);
 	if (err == OK)
 		exit(EXIT_SUCCESS);
