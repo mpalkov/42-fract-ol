@@ -34,16 +34,39 @@ void	ft_envzero(t_env *env)
 	env->win = NULL;
 	env->img->img = NULL;
 	env->img->addr = NULL;
-	env->fractsel = 0;
+	env->fr_type = 0;
 	env->param = 0;
 	env->zoom = 0;
 	return ;
 }
 
-void	ft_envinit(t_env *env, t_img *im)
+int	ft_set_f_type(char *str, t_env *env)
+{
+	int	i;
+
+	i = 0;
+	if (ft_strcmp(str, "mandelbrot") == 0 || ft_strcmp(str, "1") == 0)
+		env->fr_type = MANDELBROT;
+	else if (ft_strcmp(str, "julia") == 0 || ft_strcmp(str, "2") == 0)
+		env->fr_type = JULIA;
+	else
+		return (0);
+	return (1);
+}
+
+void	ft_argscheck(int ac, char **av, t_env *env)
+{
+	if (ac != 2 || ft_set_f_type(av[1], env) == 0)
+		ft_exit(NOARGS, env);
+	
+	return ;
+}
+
+void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 {
 	if (!env || !im)
 		ft_exit(INITERR, env);
+	
 	env->img = im;
 	ft_envzero(env);
 	env->mlx = mlx_init();
@@ -65,8 +88,7 @@ int	main(int argc, char **argv)
 	t_env	env;
 	t_img	image;
 
-	
-	ft_envinit(&env, &image);
+	ft_envinit(&env, &image, argc, argv);
 
 
 	return (0);

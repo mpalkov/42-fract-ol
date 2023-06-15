@@ -67,7 +67,7 @@ typedef struct	s_env
 	void	*win;
 	t_img	*img;
 	int		errno;
-	int		fractsel;
+	int		fr_type;
 	int		param;
 	int		zoom;
 	int		mouse_x;
