@@ -23,6 +23,7 @@ NAME	:=	fractol
 
 SRCS	:=	fractol.c \
 			exit.c \
+			handle_mouse.c
 #			utils_mlx.c
 
 #-------------------------------------------------------------------------------

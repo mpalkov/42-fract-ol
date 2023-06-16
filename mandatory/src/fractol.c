@@ -39,6 +39,8 @@ void	ft_envzero(t_env *env)
 	env->fr_type = 0;
 	env->param = 0;
 	env->zoom = 0;
+	env->maxiter = 0;
+	env->color = 0;
 	return ;
 }
 
@@ -68,9 +70,11 @@ void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 {
 	if (!env || !im)
 		ft_exit(INITERR, env);
-	ft_argscheck(argc, argv, env);
 	env->img = im;
 	ft_envzero(env);
+	ft_argscheck(argc, argv, env);
+	env->maxiter = DEFMAXITER;
+	env->color = DEFCOLOR;
 	env->mlx = mlx_init();
 	if (env->mlx == NULL)
 		ft_exit(MLXERR, env);
@@ -86,10 +90,16 @@ void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	t_env	env;
-	t_img	image;
+	t_img	img;
 
-	ft_envinit(&env, &image, argc, argv);
-
+	if (ft_putstr(BANNER) == -1)
+		ft_exit(WRITEERR, &env);	
+	
+	ft_envinit(&env, &img, argc, argv);
+	
+	mlx_key_hook(env.win, kb_handler, &env);
+	mlx_mouse_hook(env.win, mouse_handler, &env);	
+	mlx_loop(env.mlx);	
 	ft_exit(OK, &env);
 	return (0);
 }

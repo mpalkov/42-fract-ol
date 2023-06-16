@@ -23,8 +23,10 @@ void	ft_printerr(errno)
 
 void	ft_freeall(t_env *env)
 {
-	mlx_destroy_image(env->mlx, env->img);
-	mlx_destroy_window(env->mlx, env->win);
+	if (env->img->img)
+		mlx_destroy_image(env->mlx, env->img->img);
+	if (env->win)
+		mlx_destroy_window(env->mlx, env->win);
 	return ;
 }
 
