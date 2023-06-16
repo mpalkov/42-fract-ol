@@ -7,10 +7,10 @@
 		{
 			"type": "lldb",
 			"request": "launch",
-			"name": "debug a.out",
+			"name": "fractol",
 			// "program": "${fileDirname}/${fileBasenameNoExtension}.out",
-			"program": "${workspaceFolder}/TESTS/mlx_basics/a.out",
-			// "args": ["4", "7", "9", "6", "3", "5", "10", "1", "2", "8"],
+			"program": "${workspaceFolder}/mandatory/fractol",
+			"args": ["2"],
 			"stopOnEntry": false,
 			"cwd": "${fileDirname}"
 		},

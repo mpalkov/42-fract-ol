@@ -12,6 +12,7 @@
 
 #include "fractol.h"
 
+/*
 int	ft_mlx_pixput(t_env *env)
 {
 	int	pixel;
@@ -26,6 +27,7 @@ int	ft_mlx_pixput(t_env *env)
 	}
 	return (1);
 }
+*/
 
 void	ft_envzero(t_env *env)
 {
@@ -66,7 +68,7 @@ void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 {
 	if (!env || !im)
 		ft_exit(INITERR, env);
-	
+	ft_argscheck(argc, argv, env);
 	env->img = im;
 	ft_envzero(env);
 	env->mlx = mlx_init();
@@ -81,8 +83,6 @@ void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 	return ;
 }
 
-void	
-
 int	main(int argc, char **argv)
 {
 	t_env	env;
@@ -90,6 +90,6 @@ int	main(int argc, char **argv)
 
 	ft_envinit(&env, &image, argc, argv);
 
-
+	ft_exit(OK, &env);
 	return (0);
 }

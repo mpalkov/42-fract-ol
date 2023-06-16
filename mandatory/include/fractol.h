@@ -13,7 +13,7 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # include "mlx.h"
-# include "./libft/libft.h"
+# include "../libft/libft.h"
 
 // GENERAL VALUES DEFINITIONS
 	// mlx window width
@@ -41,16 +41,14 @@ enum errs
 	MALLOCERR,
 	MLXERR,
 	INITERR
-}
+};
 
 enum fractls
 {
-	MANDELBROT,
+	MANDELBROT = 1,
 	JULIA,
 	BURNINGSHIP
-}
-
-typedef;
+};
 
 typedef struct	s_img
 {
@@ -74,6 +72,6 @@ typedef struct	s_env
 	int		mouse_y;
 }				t_env;
 
-void	ft_exit(int err, t_enviro *env);
+void	ft_exit(int err, t_env *env);
 
 #endif
