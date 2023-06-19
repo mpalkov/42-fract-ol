@@ -30,6 +30,11 @@ void	ft_freeall(t_env *env)
 	return ;
 }
 
+void	ft_x_close(t_env *env)
+{
+	ft_exit(OK, env);
+}
+
 void	ft_exit(int err, t_env *env)
 {
 	env->errno = err;
