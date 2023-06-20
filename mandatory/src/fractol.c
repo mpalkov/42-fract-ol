@@ -87,7 +87,7 @@ void	ft_argscheck(int ac, char **av, t_env *env)
 	return ;
 }
 
-// MLX LEAKS - mlx_init(); gives this leak:
+// MLX LEAKS - mlx_init(); causes this leak:
 // 		1 (48 bytes) ROOT LEAK: <CFString 0x7f8c61725fb0> [48]  length: 26  "Copyright Apple Inc., 2019"
 void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 {
