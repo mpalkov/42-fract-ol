@@ -28,6 +28,9 @@ void	kb_handler(int keycode, void *params)
 	t_env	*env;
 
 	env = params;
-	ft_printf("key pressed: %d\n", keycode);
+	if (keycode == KB_ESC)
+		ft_exit(OK, env);
+	else
+		ft_printf("key pressed: %d\n", keycode);
 	return ;
 }

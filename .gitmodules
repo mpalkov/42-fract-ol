@@ -1,3 +1,0 @@
-[submodule "mandatory/libft"]
-	path = mandatory/libft
-	url = https://github.com/mpalkov/42-libft.git

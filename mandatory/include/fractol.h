@@ -122,30 +122,27 @@ By: mpalkov@student.42barcelona.com
 	write(1, "|____________________________________________________|\n", 55);
 */	
 
-/*
-KB_TAB 48
-KB_ESC 53
-KB_W 13
-KB_A 0
-KB_S 1
-KB_D 2
-KB_UP 126
-KB_DN 125
-KB_RIGHT 124
-KB_LEFT 123
-KB_SPACE 49
-KB_MINUS 78
-KB_PLUS 69
-KB_R 15
-KB_G 5
-KB_B 11
-KB_Z 6
-KB_X 7
+# define KB_TAB 48
+# define KB_ESC 53
+# define KB_W 13
+# define KB_A 0
+# define KB_S 1
+# define KB_D 2
+# define KB_UP 126
+# define KB_DN 125
+# define KB_RIGHT 124
+# define KB_LEFT 123
+# define KB_SPACE 49
+# define KB_MINUS 78
+# define KB_PLUS 69
+# define KB_R 15
+# define KB_G 5
+# define KB_B 11
+# define KB_Z 6
+# define KB_X 7
 
-M_WHEELUP 5
-M_WHEELDN 4
-M_LCLICK 1
-M_RCLICK 2
-
-*/
+# define M_WHEELUP 5
+# define M_WHEELDN 4
+# define M_LCLICK 1
+# define M_RCLICK 2
                                     
