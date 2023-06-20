@@ -24,14 +24,15 @@
 	// mlx window title
 # define WIN_NAME "fractol_42"
 	// min/max fractal axis values
-# define MAX_W_MANDEL (double)2
-# define MIN_W_MANDEL (double)-2
-# define MAX_H_MANDEL (double)2
-# define MIN_H_MANDEL (double)-2
+# define MIN_RN (double)-0.3
+# define MAX_RN (double)0.5
+# define MIN_IN (double)0
+# define MAX_IN (double)(MIN_IN + (MAX_RN - MIN_RN) * WIN_H / WIN_W)
 	// max iterations default value;
-# define DEFMAXITER 25
+# define MAXITER 50
+	//iterstep == 256 / maxiter, aprox. has to be integer and less so it will not overflow.
 	
-# define DEFCOLOR 0x00F000
+# define DEFCOLOR 0x00FF0000
 
 # define BANNER "\
  ______              _    _      _ \n\
@@ -77,9 +78,9 @@ enum fractls
 typedef struct	s_img
 {
 	void	*img;
-	char	*addr;
+	char	*address;
 	int		bits_per_pixel;
-	int		line_length; //in bytes (int = 4 bytes)
+	int		line_bytes; //in bytes (int = 4 bytes)
 	int		endian;
 }				t_img;
 
@@ -102,8 +103,11 @@ typedef struct	s_env
 	int		mouse_y;
 	int		maxiter;
 	int		color;
-	int		frx;
-	int		fry;
+	double	rn_factor;
+	double	in_factor;
+	double	rn;
+	double	in;
+	double	iterstep;
 }				t_env;
 
 # define KB_TAB 48
@@ -133,9 +137,9 @@ typedef struct	s_env
 # define M_RCLICK 2
 
 void	ft_exit(int err, t_env *env);
-void	ft_x_close(t_env *env);
-void	mouse_handler(int evnt, int x, int y, void *params);
-void	kb_handler(int keycode, void *params);
+int		ft_x_close(t_env *env);
+int		mouse_handler(int evnt, int x, int y, void *params);
+int		kb_handler(int keycode, void *params);
 
 #endif
 
