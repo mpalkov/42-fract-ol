@@ -86,7 +86,46 @@ void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 
 	return ;
 }
+/*
+int	ft_itrcalc()
+{
+	double	rn;
+	double	in;
 
+	// calculate fractal axis based on img's pixel position
+	rn = 2 / ((WIN_W / 2) / ((double)x - WIN_W / 2));
+	in = -2 / ((WIN_H / 2) / ((double)y - WIN_H / 2));
+
+
+	return ();
+}
+
+void	ft_fractal(t_env *env)
+{
+	int		x;
+	int		y;
+	// double	rn;
+	// double	in;
+	int		itr;
+
+	itr = 0;
+	y = 0;
+	while (y <= WIN_H)
+	{
+		x = 0;
+		while (x <= WIN_W)
+		{
+			// rn = 2 / ((WIN_W / 2) / ((double)x - WIN_W / 2));
+			// in = -2 / ((WIN_H / 2) / ((double)y - WIN_H / 2));
+			itr = ft_itrcalc()
+			++x;
+		}
+		++y;
+	}
+
+	return ;
+}
+*/
 int	main(int argc, char **argv)
 {
 	t_env	env;
@@ -97,9 +136,12 @@ int	main(int argc, char **argv)
 	
 	ft_envinit(&env, &img, argc, argv);
 	
+	// ft_fractalinit(&env);
+
+	mlx_hook(env.win, BTN_X, 0, ft_x_close, &env);
 	mlx_key_hook(env.win, kb_handler, &env);
-	mlx_mouse_hook(env.win, mouse_handler, &env);	
-	mlx_loop(env.mlx);	
-	ft_exit(OK, &env);
+	mlx_mouse_hook(env.win, mouse_handler, &env);
+	mlx_loop(env.mlx);
+//	ft_exit(OK, &env);
 	return (0);
 }
