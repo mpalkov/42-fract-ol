@@ -33,6 +33,7 @@
 	//iterstep == 256 / maxiter, aprox. has to be integer and less so it will not overflow.
 	
 # define DEFCOLOR 0x00FF0000
+# define ZOOM_STEP (double)1.1
 
 # define BANNER "\
  ______              _    _      _ \n\
@@ -47,9 +48,9 @@
 |     This program requires an argument on input.    |\n\
 |    Write one of these options as prog. argument:   |\n\
 |____________________________________________________|\n\
-|                  1   or   Mandelbrot               |\n\
-|                  2   or   Julia                    |\n\
-|                  3   or   BurningShip              |\n\
+|                1   or   Mandelbrot                 |\n\
+|                2   or   Julia                      |\n\
+|                3   or   BurningShip                |\n\
 |____________________________________________________|\n\n"
 # define WRITEMSG "writing error."
 # define MALLOCMSG "malloc error."
@@ -108,6 +109,10 @@ typedef struct	s_env
 	double	rn;
 	double	in;
 	double	iterstep;
+	double	rn_min;
+	double	rn_max;
+	double	in_min;
+	double	in_max;
 }				t_env;
 
 # define KB_TAB 48
@@ -157,9 +162,9 @@ By: mpalkov@student.42barcelona.com
 	write(1, "|     This program requires an argument on input.    |\n", 55);
 	write(1, "|    Write one of these options as prog. argument:   |\n", 55);
 	          |____________________________________________________|\n"
-	write(1, "|                  1   or   Mandelbrot               |\n", 55);
-	write(1, "|                  2   or   Julia                    |\n", 55);
-	write(1, "|                  3   or   BurningShip              |\n", 55);
+	write(1, "|                 1   or   Mandelbrot                |\n", 55);
+	write(1, "|                 2   or   Julia                     |\n", 55);
+	write(1, "|                 3   or   BurningShip               |\n", 55);
 	write(1, "|____________________________________________________|\n", 55);
 */	
 

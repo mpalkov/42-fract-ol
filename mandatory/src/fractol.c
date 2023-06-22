@@ -100,6 +100,10 @@ void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 	ft_argscheck(argc, argv, env);
 	env->maxiter = MAXITER;
 	env->color = DEFCOLOR;
+	env->rn_min = MIN_RN;
+	env->rn_max = MAX_RN;
+	env->in_min = MIN_IN;
+	env->in_max = MAX_IN;
 	env->mlx = mlx_init();
 	env->iterstep = 256 / MAXITER;
 	if (env->mlx == NULL)
@@ -172,7 +176,7 @@ void	ft_fractal(t_env *env)
 		env->in = MIN_IN + y * env->in_factor;
 		while (x < WIN_W)
 		{
-			env->rn = MIN_RN + x * env->in_factor;
+			env->rn = MIN_RN + x * env->rn_factor;
 			itr = ft_itercalc(x, y, env);
 			ft_mlx_frpix(x, y, itr, env);
 			++x;

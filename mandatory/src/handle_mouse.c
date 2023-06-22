@@ -12,18 +12,32 @@
 
 #include "fractol.h"
 
-int	mouse_handler(int evnt, int x, int y, void *params)
+int	mouse_handler(int event, int x, int y, void *params)
 {
 	t_env	*env;
-	double	rn = 0;
-	//double	in = 0;
 
 	env = params;
 	env->mouse_x = x;
 	env->mouse_y = y;
-	rn = 2 / ((WIN_W / 2) / ((double)x - WIN_W / 2));
-	in = -2 / ((WIN_H / 2) / ((double)y - WIN_H / 2));
-	printf("mouse x: %d\nmouse y: %d\nevent: %d\nRN = %f\n\nIN = %f\n\n", x, y, evnt, rn, in);
+
+	double	rn = 0;
+	double	in = 0;
+	if (event == M_WHEELDN || event == M_WHEELUP)
+	{
+		// ft_zoom()
+		env->rn_min = env->rn_min + ((env->rn_max - env->rn_min) / ZOOM_STEP) * x / WIN_W;
+		env->rn_max = env->rn_max - ((env->rn_max - env->rn_min) / ZOOM_STEP) * (1 - x / WIN_W);
+		env->in_min = env->in_min + ((env->in_max - env->in_min) / ZOOM_STEP) * y / WIN_H;
+		env->in_max = env->in_max - ((env->in_max - env->in_min) / ZOOM_STEP) * (1 - x / WIN_H);
+		//printf("event: %d\nrn min = %f\nrn max = %f\nin min = %f\nin max = %f\n\n", env->rn_min, env->rn_max, env->in_min, env->in_max, event);
+		printf("event: %d X: %d Y: %d\n\n", event, x, y);
+	
+	}
+
+	//rn = MIN_RN + y * env->rn_factor;
+	//in = MIN_IN + y * env->in_factor;
+	// printf("mouse x: %d\nmouse y: %d\nevent: %d\nRN = %f\n\nIN = %f\n\n", x, y, evnt, rn, in);
+	// printf ("rn factor: %f\nin factor: %f\n\n", env->rn_factor, env->in_factor);
 	return (0);
 }
 
