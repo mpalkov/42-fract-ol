@@ -16,14 +16,14 @@ void	mouse_handler(int evnt, int x, int y, void *params)
 {
 	t_env	*env;
 	double	rn = 0;
-	double	in = 0;
+	//double	in = 0;
 
 	env = params;
 	env->mouse_x = x;
 	env->mouse_y = y;
-	rn = 2 / ((WIN_W / 2) / ((double)x - WIN_W / 2));
-	in = -2 / ((WIN_H / 2) / ((double)y - WIN_H / 2));
-	printf("mouse x: %d\nmouse y: %d\nevent: %d\nRN = %f\n\nIN = %f\n\n", x, y, evnt, rn, in);
+	// rn = 2 / ((WIN_W / 2) / ((double)x - WIN_W / 2));
+	// in = -2 / ((WIN_H / 2) / ((double)y - WIN_H / 2));
+	// printf("mouse x: %d\nmouse y: %d\nevent: %d\nRN = %f\n\nIN = %f\n\n", x, y, evnt, rn, in);
 	return ;
 }
 

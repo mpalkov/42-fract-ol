@@ -24,10 +24,10 @@
 	// mlx window title
 # define WIN_NAME "fractol_42"
 	// min/max fractal axis values
-# define MAX_W_MANDEL (double)2
-# define MIN_W_MANDEL (double)-2
-# define MAX_H_MANDEL (double)2
-# define MIN_H_MANDEL (double)-2
+# define MAX_RN (double)2
+# define MIN_RN (double)-2
+# define MAX_IN (double)2
+# define MIN_IN (double)-2
 	// max iterations default value;
 # define DEFMAXITER 25
 	
@@ -104,6 +104,8 @@ typedef struct	s_env
 	int		color;
 	int		frx;
 	int		fry;
+	double	rn_factor;
+	double	in_factor;
 }				t_env;
 
 # define KB_TAB 48

@@ -41,6 +41,8 @@ void	ft_envzero(t_env *env)
 	env->zoom = 0;
 	env->maxiter = 0;
 	env->color = 0;
+	env->rn_factor = 0;
+	env->in_factor = 0;
 	return ;
 }
 
@@ -86,16 +88,19 @@ void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 
 	return ;
 }
-/*
-int	ft_itrcalc()
+
+int	ft_itrcalc(int x, int y, t_env *env)
 {
 	double	rn;
 	double	in;
 
+	rn = MIN_RN + y * env->rn_factor;
+	in = MIN_IN + x * env->in_factor;
 	// calculate fractal axis based on img's pixel position
 	rn = 2 / ((WIN_W / 2) / ((double)x - WIN_W / 2));
 	in = -2 / ((WIN_H / 2) / ((double)y - WIN_H / 2));
-
+	// XXXXX CONTINUAR AQUI
+	
 
 	return ();
 }
@@ -110,14 +115,22 @@ void	ft_fractal(t_env *env)
 
 	itr = 0;
 	y = 0;
-	while (y <= WIN_H)
+
+	//precalculate constant values, so less CPU power will be required in
+	//calculations of rn and in the itrcalc later.
+	env->rn_factor = (MAX_RN - MIN_RN) / (WIN_W -1);
+	env->in_factor = (MAX_IN - MIN_IN) / (WIN_H - 1);
+
+	while (y >= 0 && <= WIN_H)
 	{
 		x = 0;
-		while (x <= WIN_W)
+		while (x >= 0 && x <= WIN_W)
 		{
 			// rn = 2 / ((WIN_W / 2) / ((double)x - WIN_W / 2));
 			// in = -2 / ((WIN_H / 2) / ((double)y - WIN_H / 2));
-			itr = ft_itrcalc()
+			itr = ft_itrcalc(x, y, env);
+			if (itr > 0)
+				XXXXXXXXX_MYPIXELPUT
 			++x;
 		}
 		++y;
@@ -125,7 +138,7 @@ void	ft_fractal(t_env *env)
 
 	return ;
 }
-*/
+
 int	main(int argc, char **argv)
 {
 	t_env	env;
