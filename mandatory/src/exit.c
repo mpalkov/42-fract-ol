@@ -30,9 +30,10 @@ void	ft_freeall(t_env *env)
 	return ;
 }
 
-void	ft_x_close(t_env *env)
+int	ft_x_close(t_env *env)
 {
 	ft_exit(OK, env);
+	return (0);
 }
 
 void	ft_exit(int err, t_env *env)

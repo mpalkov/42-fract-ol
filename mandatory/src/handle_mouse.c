@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-void	mouse_handler(int evnt, int x, int y, void *params)
+int	mouse_handler(int evnt, int x, int y, void *params)
 {
 	t_env	*env;
 	double	rn = 0;
@@ -21,13 +21,13 @@ void	mouse_handler(int evnt, int x, int y, void *params)
 	env = params;
 	env->mouse_x = x;
 	env->mouse_y = y;
-	// rn = 2 / ((WIN_W / 2) / ((double)x - WIN_W / 2));
-	// in = -2 / ((WIN_H / 2) / ((double)y - WIN_H / 2));
-	// printf("mouse x: %d\nmouse y: %d\nevent: %d\nRN = %f\n\nIN = %f\n\n", x, y, evnt, rn, in);
-	return ;
+	rn = 2 / ((WIN_W / 2) / ((double)x - WIN_W / 2));
+	in = -2 / ((WIN_H / 2) / ((double)y - WIN_H / 2));
+	printf("mouse x: %d\nmouse y: %d\nevent: %d\nRN = %f\n\nIN = %f\n\n", x, y, evnt, rn, in);
+	return (0);
 }
 
-void	kb_handler(int keycode, void *params)
+int	kb_handler(int keycode, void *params)
 {
 	t_env	*env;
 
@@ -35,5 +35,5 @@ void	kb_handler(int keycode, void *params)
 	if (keycode == KB_ESC)
 		ft_x_close(params);
 	ft_printf("key pressed: %d\n", keycode);
-	return ;
+	return (0);
 }
