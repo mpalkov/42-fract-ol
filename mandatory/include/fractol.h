@@ -24,16 +24,17 @@
 	// mlx window title
 # define WIN_NAME "fractol_42"
 	// min/max fractal axis values
-# define MIN_RN (double)-0.3
-# define MAX_RN (double)0.5
-# define MIN_IN (double)0
-# define MAX_IN (double)(MIN_IN + (MAX_RN - MIN_RN) * WIN_H / WIN_W)
+# define MIN_RN (double)-2
+# define MAX_RN (double)1
+# define MIN_IN (double)-1.2
+# define MAX_IN (double)1.2
+//# define MAX_IN (double)(MIN_IN + (MAX_RN - MIN_RN) * WIN_H / WIN_W)
 	// max iterations default value;
 # define MAXITER 50
 	//iterstep == 256 / maxiter, aprox. has to be integer and less so it will not overflow.
 	
 # define DEFCOLOR 0x00FF0000
-# define ZOOM_STEP (double)1.1
+# define ZOOM_STEP (double)0.01
 
 # define BANNER "\
  ______              _    _      _ \n\
@@ -141,6 +142,8 @@ typedef struct	s_env
 # define M_LCLICK 1
 # define M_RCLICK 2
 
+
+void	ft_fractal(t_env *env);
 void	ft_exit(int err, t_env *env);
 int		ft_x_close(t_env *env);
 int		mouse_handler(int evnt, int x, int y, void *params);

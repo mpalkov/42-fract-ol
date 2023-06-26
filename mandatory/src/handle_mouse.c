@@ -22,17 +22,37 @@ int	mouse_handler(int event, int x, int y, void *params)
 
 	double	rn = 0;
 	double	in = 0;
-	if (event == M_WHEELDN || event == M_WHEELUP)
+	if (event == M_WHEELDN)
 	{
 		// ft_zoom()
-		env->rn_min = env->rn_min + ((env->rn_max - env->rn_min) / ZOOM_STEP) * x / WIN_W;
-		env->rn_max = env->rn_max - ((env->rn_max - env->rn_min) / ZOOM_STEP) * (1 - x / WIN_W);
-		env->in_min = env->in_min + ((env->in_max - env->in_min) / ZOOM_STEP) * y / WIN_H;
-		env->in_max = env->in_max - ((env->in_max - env->in_min) / ZOOM_STEP) * (1 - x / WIN_H);
-		//printf("event: %d\nrn min = %f\nrn max = %f\nin min = %f\nin max = %f\n\n", env->rn_min, env->rn_max, env->in_min, env->in_max, event);
-		printf("event: %d X: %d Y: %d\n\n", event, x, y);
+		printf("rn_min: %f\nrn_max: %f\nin_min: %f\nin_max: %f\n---\n", env->rn_min, env->rn_max, env->in_min, env->in_max);
+		env->rn_min = env->rn_min + ((env->rn_max - env->rn_min) / WIN_W / ZOOM_STEP) * ((double)x / WIN_W);
+		env->rn_max = env->rn_max - ((env->rn_max - env->rn_min) / WIN_W  / ZOOM_STEP) * (1 - (double)x / WIN_W);
+		env->in_min = env->in_min + ((env->in_max - env->in_min) / WIN_H  / ZOOM_STEP) * ((double)y / WIN_H);
+		env->in_max = env->in_max - ((env->in_max - env->in_min) / WIN_H  / ZOOM_STEP) * (1 - (double)x / WIN_H);
+		printf("event: %d\nrn min = %f\nrn max = %f\nin min = %f\nin max = %f\n\n", env->rn_min, env->rn_max, env->in_min, env->in_max, event);
+		printf("x = %d y = %d\nx/win_w = %f\n1-x/win_w = %f\n\n", x, y, (double)x/WIN_W, 1 - (double)x/WIN_W);
+		// mlx_hook(env.win, M_WHEELDN, 0, mouse_handler, &env) - x / WIN_W);
+		// printf("event: %d X: %d Y: %d\n\n", event, x, y);
+		ft_fractal(env);
 	
 	}
+	else if (event == M_WHEELUP)
+	{
+		// ft_zoom()
+		printf("rn_min: %f\nrn_max: %f\nin_min: %f\nin_max: %f\n---\n", env->rn_min, env->rn_max, env->in_min, env->in_max);
+		env->rn_min = env->rn_min - ((env->rn_max - env->rn_min) / WIN_W / ZOOM_STEP) * ((double)x / WIN_W);
+		env->rn_max = env->rn_max + ((env->rn_max - env->rn_min) / WIN_W  / ZOOM_STEP) * (1 - (double)x / WIN_W);
+		env->in_min = env->in_min - ((env->in_max - env->in_min) / WIN_H  / ZOOM_STEP) * ((double)y / WIN_H);
+		env->in_max = env->in_max + ((env->in_max - env->in_min) / WIN_H  / ZOOM_STEP) * (1 - (double)x / WIN_H);
+		printf("event: %d\nrn min = %f\nrn max = %f\nin min = %f\nin max = %f\n\n", env->rn_min, env->rn_max, env->in_min, env->in_max, event);
+		printf("x = %d y = %d\nx/win_w = %f\n1-x/win_w = %f\n\n", x, y, (double)x/WIN_W, 1 - (double)x/WIN_W);
+		// mlx_hook(env.win, M_WHEELDN, 0, mouse_handler, &env) - x / WIN_W);
+		// printf("event: %d X: %d Y: %d\n\n", event, x, y);
+		ft_fractal(env);
+	
+	}
+
 
 	//rn = MIN_RN + y * env->rn_factor;
 	//in = MIN_IN + y * env->in_factor;

@@ -168,15 +168,15 @@ void	ft_fractal(t_env *env)
 
 	itr = 0;
 	y = 0;
-	env->rn_factor = (MAX_RN - MIN_RN)/WIN_W;
-	env->in_factor = (MAX_IN - MIN_IN)/WIN_H;
+	env->rn_factor = (env->rn_max - env->rn_min) / WIN_W;
+	env->in_factor = (env->in_max - env->in_min) / WIN_H;
 	while (y < WIN_H)
 	{
 		x = 0;
-		env->in = MIN_IN + y * env->in_factor;
+		env->in = env->in_min + y * env->in_factor;
 		while (x < WIN_W)
 		{
-			env->rn = MIN_RN + x * env->rn_factor;
+			env->rn = env->rn_min + x * env->rn_factor;
 			itr = ft_itercalc(x, y, env);
 			ft_mlx_frpix(x, y, itr, env);
 			++x;
@@ -202,6 +202,8 @@ int	main(int argc, char **argv)
 
 	mlx_hook(env.win, BTN_X, 0, ft_x_close, &env);
 	mlx_key_hook(env.win, kb_handler, &env);
+	// mlx_hook(env.win, M_WHEELDN, 0, mouse_handler, &env); WORKS same way as
+	// mlx_mouse_hook
 	mlx_mouse_hook(env.win, mouse_handler, &env);
 	mlx_loop(env.mlx);
 	ft_exit(OK, &env);
