@@ -27,14 +27,14 @@
 # define MIN_RN (double)-2
 # define MAX_RN (double)1
 # define MIN_IN (double)-1.2
-# define MAX_IN (double)1.2
-//# define MAX_IN (double)(MIN_IN + (MAX_RN - MIN_RN) * WIN_H / WIN_W)
+// # define MAX_IN (double)1.2
+# define MAX_IN (double)(MIN_IN + (MAX_RN - MIN_RN) * WIN_H / WIN_W)
 	// max iterations default value;
 # define MAXITER 50
 	//iterstep == 256 / maxiter, aprox. has to be integer and less so it will not overflow.
 	
 # define DEFCOLOR 0x00FF0000
-# define ZOOM_STEP (double)0.01
+# define ZOOM_STEP (double)1.1
 
 # define BANNER "\
  ______              _    _      _ \n\
