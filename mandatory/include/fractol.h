@@ -195,4 +195,3 @@ By: mpalkov@student.42barcelona.com
 # define M_WHEELDN 4
 # define M_LCLICK 1
 # define M_RCLICK 2
-                                    

@@ -41,7 +41,8 @@ int	ft_mlx_putpix(int x, int y, int color, t_env *env)
 
 void	ft_mlx_frpix(int x, int y, int itr, t_env *env)
 {
-	int	color = 0x00FF0000;
+	int	color = env->color;
+	int	step  = (int)(env->iterstep * itr);
 	
 	if (itr == 0)
 		color = 0x00000000;
@@ -105,7 +106,7 @@ void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 	env->in_min = MIN_IN;
 	env->in_max = MAX_IN;
 	env->mlx = mlx_init();
-	env->iterstep = 256 / MAXITER;
+	env->iterstep = 255 / MAXITER;
 	if (env->mlx == NULL)
 		ft_exit(MLXERR, env);
 	env->win = mlx_new_window(env->mlx, WIN_W, WIN_H, WIN_NAME);
