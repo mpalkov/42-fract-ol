@@ -35,6 +35,7 @@
 	
 # define DEFCOLOR 0x00FF0000
 # define ZOOM_STEP (double)1.1
+# define MOVE_STEP (double)80
 
 # define BANNER "\
  ______              _    _      _ \n\

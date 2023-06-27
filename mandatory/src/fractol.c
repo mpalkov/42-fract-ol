@@ -117,7 +117,8 @@ void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 	return ;
 }
 
-int	ft_itercalc(int x, int y, t_env *env)
+// int	ft_itercalc(int x, int y, t_env *env)
+int	ft_itercalc(t_env *env)
 {
 	double	z_re;
 	double	z_im;
@@ -140,7 +141,6 @@ int	ft_itercalc(int x, int y, t_env *env)
 	}
 	return (0);
 }
-
 
 // calculate the real and imaginary nbrs:
 // c_re = MinRe + x*(MaxRe-MinRe)/(ImageWidth-1);
@@ -177,7 +177,7 @@ void	ft_fractal(t_env *env)
 		while (x < WIN_W)
 		{
 			env->rn = env->rn_min + x * env->rn_factor;
-			itr = ft_itercalc(x, y, env);
+			itr = ft_itercalc(env);
 			ft_mlx_frpix(x, y, itr, env);
 			++x;
 		}
