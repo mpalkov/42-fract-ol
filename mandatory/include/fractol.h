@@ -28,10 +28,10 @@
 # define MAX_RN (double)1
 # define MIN_IN (double)-1.2
 // # define MAX_IN (double)1.2
-# define MAX_IN (double)(MIN_IN + (MAX_RN - MIN_RN) * WIN_H / WIN_W)
+# define MAX_IN (MIN_IN + (MAX_RN - MIN_RN) * WIN_H / WIN_W)
 	// max iterations default value;
-# define MAXITER 50
-	//iterstep == 256 / maxiter, aprox. has to be integer and less so it will not overflow.
+# define MAXITER 100
+	//iterstep = 256 / maxiter | Has to be 8bits (int 0-255) or less so it will not overflow.
 	
 # define DEFCOLOR 0x00FF0000
 # define ZOOM_STEP (double)1.1

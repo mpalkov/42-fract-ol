@@ -47,7 +47,7 @@ void	ft_mlx_frpix(int x, int y, int itr, t_env *env)
 	if (itr == 0)
 		color = 0x00000000;
 	else
-		color = DEFCOLOR & ((int)(env->iterstep * itr) << 16);
+		color = (color & step) | (color & step << 8) | (color & step << 16);
 		//printf("iters: %d, color: %x\n", itr, 0x00FF0000 & ((itr / MAXITER * 255) << 2));
 	ft_mlx_putpix(x, y, color, env);
 }
