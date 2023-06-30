@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"fractol.h": "c",
-		"ft_printf.h": "c"
+		"ft_printf.h": "c",
+		"_types.h": "c"
 	}
 }
