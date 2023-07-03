@@ -30,12 +30,15 @@
 // # define MAX_IN (double)1.2
 # define MAX_IN (MIN_IN + (MAX_RN - MIN_RN) * WIN_H / WIN_W)
 	// max iterations default value;
-# define MAXITER 100
+# define MAXITER 45
 	//iterstep = 256 / maxiter | Has to be 8bits (int 0-255) or less so it will not overflow.
 	
 # define DEFCOLOR 0x00FF0000
 # define ZOOM_STEP (double)1.1
 # define MOVE_STEP (double)80
+# define COLOR_STEP 25
+
+# define UCHR unsigned char
 
 # define BANNER "\
  ______              _    _      _ \n\
@@ -135,6 +138,16 @@ typedef struct	s_env
 # define KB_B 11
 # define KB_Z 6
 # define KB_X 7
+# define KB_NUM0 82
+# define KB_NUM1 83
+# define KB_NUM2 84
+# define KB_NUM3 85
+# define KB_NUM4 86
+# define KB_NUM5 87
+# define KB_NUM6 88
+# define KB_NUM7 89
+# define KB_NUM8 91
+# define KB_NUM9 92
 
 # define BTN_X 17
 
@@ -142,7 +155,6 @@ typedef struct	s_env
 # define M_WHEELDN 4
 # define M_LCLICK 1
 # define M_RCLICK 2
-
 
 void	ft_fractal(t_env *env);
 void	ft_exit(int err, t_env *env);

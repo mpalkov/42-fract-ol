@@ -51,6 +51,7 @@ void	ft_mlx_frpix(int x, int y, int itr, t_env *env)
 		//printf("iters: %d, color: %x\n", itr, 0x00FF0000 & ((itr / MAXITER * 255) << 2));
 	ft_mlx_putpix(x, y, color, env);
 }
+
 void	ft_envzero(t_env *env)
 {
 	env->errno = 0;

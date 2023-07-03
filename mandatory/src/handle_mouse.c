@@ -75,6 +75,47 @@ void	ft_move(int keycode, t_env *env)
 	return ;
 }
 
+int	ft_argb2int(int r, int g, int b)
+{
+	if (r > 255)
+		r = 255;
+	else if (r < 0)
+		r = 0;
+	if (g > 255)
+		g = 255;
+	else if (g < 0)
+		g = 0;
+	if (b > 255)
+		b = 255;
+	else if (b < 0)
+		b = 0;
+	return (r << 16 | g << 8 | b);
+}
+
+void	ft_colorshift(int keycode, t_env *env)
+{
+	int color = env->color;
+	
+	int	r = (UCHR)(color >> 16);
+	int	g = (UCHR)(color >> 8);
+	int	b = (UCHR)color;
+
+	if (keycode == KB_NUM9) // rgB+
+		env->color = ft_argb2int(r, g, b + COLOR_STEP);
+	else if (keycode == KB_NUM6) // rgB-
+		env->color = ft_argb2int(r, g, b - COLOR_STEP);
+	else if (keycode == KB_NUM8) // rGb+
+		env->color = ft_argb2int(r, g + COLOR_STEP, b);
+	else if (keycode == KB_NUM5) // rGb-
+		env->color = ft_argb2int(r, g - COLOR_STEP, b);
+	else if (keycode == KB_NUM7) // Rgb+
+		env->color = ft_argb2int(r + COLOR_STEP, g, b);
+	else if (keycode == KB_NUM4) // Rgb-
+		env->color = ft_argb2int(r - COLOR_STEP, g, b);
+	ft_printf("env->color: %x\n", env->color);
+	return ;
+}
+
 int	kb_handler(int keycode, void *params)
 {
 	t_env	*env;
@@ -86,9 +127,9 @@ int	kb_handler(int keycode, void *params)
 		|| keycode == KB_S || keycode == KB_LEFT || keycode == KB_A \
 		|| keycode == KB_RIGHT || keycode == KB_D)
 		ft_move(keycode, env);
-	
-	
-
+	else if (keycode >= KB_NUM0 && keycode <= KB_NUM9)
+		ft_colorshift(keycode, env);
+	ft_fractal(env);
 	ft_printf("key pressed: %d\n", keycode);
 	return (0);
 }
