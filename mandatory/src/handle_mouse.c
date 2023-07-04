@@ -75,7 +75,7 @@ void	ft_move(int keycode, t_env *env)
 	return ;
 }
 
-int	ft_argb2int(int r, int g, int b)
+int	ft_rgb2int(int r, int g, int b)
 {
 	if (r > 255)
 		r = 255;
@@ -101,17 +101,18 @@ void	ft_colorshift(int keycode, t_env *env)
 	int	b = (UCHR)color;
 
 	if (keycode == KB_NUM9) // rgB+
-		env->color = ft_argb2int(r, g, b + COLOR_STEP);
+		env->color = ft_rgb2int(r, g, b + COLOR_STEP);
 	else if (keycode == KB_NUM6) // rgB-
-		env->color = ft_argb2int(r, g, b - COLOR_STEP);
+		env->color = ft_rgb2int(r, g, b - COLOR_STEP);
 	else if (keycode == KB_NUM8) // rGb+
-		env->color = ft_argb2int(r, g + COLOR_STEP, b);
+		env->color = ft_rgb2int(r, g + COLOR_STEP, b);
 	else if (keycode == KB_NUM5) // rGb-
-		env->color = ft_argb2int(r, g - COLOR_STEP, b);
+		env->color = ft_rgb2int(r, g - COLOR_STEP, b);
 	else if (keycode == KB_NUM7) // Rgb+
-		env->color = ft_argb2int(r + COLOR_STEP, g, b);
+		env->color = ft_rgb2int(r + COLOR_STEP, g, b);
 	else if (keycode == KB_NUM4) // Rgb-
-		env->color = ft_argb2int(r - COLOR_STEP, g, b);
+		env->color = ft_rgb2int(r - COLOR_STEP, g, b);
+	
 	ft_printf("env->color: %x\n", env->color);
 	return ;
 }

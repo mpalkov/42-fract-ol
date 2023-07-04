@@ -42,13 +42,18 @@ int	ft_mlx_putpix(int x, int y, int color, t_env *env)
 void	ft_mlx_frpix(int x, int y, int itr, t_env *env)
 {
 	int	color = env->color;
-	int	step  = (int)(env->iterstep * itr);
+	int	step  = (int)(env->iterstep * (MAXITER - itr));
+	int	r = (UCHR)(color >> 16);
+	int	g = (UCHR)(color >> 8);
+	int	b = (UCHR)color;
 	
 	if (itr == 0)
 		color = 0x00000000;
 	else
-		color = (color & step) | (color & step << 8) | (color & step << 16);
+		// color = (color & step) | (color & step << 8) | (color & step << 16);
+		color = ft_rgb2int((r - step), (g - step), (b - step));
 		//printf("iters: %d, color: %x\n", itr, 0x00FF0000 & ((itr / MAXITER * 255) << 2));
+		
 	ft_mlx_putpix(x, y, color, env);
 }
 
@@ -195,7 +200,7 @@ int	main(int argc, char **argv)
 	t_img	img;
 
 	if (ft_putstr(BANNER) == -1)
-		ft_exit(WRITEERR, &env);	
+		ft_exit(WRITEERR, &env);
 	
 	ft_envinit(&env, &img, argc, argv);
 	

@@ -161,6 +161,7 @@ void	ft_exit(int err, t_env *env);
 int		ft_x_close(t_env *env);
 int		mouse_handler(int evnt, int x, int y, void *params);
 int		kb_handler(int keycode, void *params);
+int		ft_rgb2int(int r, int g, int b);
 
 #endif
 
