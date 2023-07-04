@@ -83,6 +83,8 @@ int	ft_set_f_type(char *str, t_env *env)
 		env->fr_type = MANDELBROT;
 	else if (ft_strcmp(str, "julia") == 0 || ft_strcmp(str, "2") == 0)
 		env->fr_type = JULIA;
+	else if (ft_strcmp(str, "burningship") == 0 || ft_strcmp(str, "3") == 0)
+		env->fr_type = BURNINGSHIP;
 	else
 		return (0);
 	return (1);
@@ -92,8 +94,19 @@ void	ft_argscheck(int ac, char **av, t_env *env)
 {
 	if (ac != 2 || ft_set_f_type(av[1], env) == 0)
 		ft_exit(NOARGS, env);
-	
 	return ;
+}
+void	ft_fractalinit(t_env *env)
+{
+	if (env->fr_type == MANDELBROT)
+	{
+
+	}
+	else if (env->fr_type == JULIA)
+	{
+
+	}
+
 }
 
 // MLX LEAKS - mlx_init(); causes this leak:
@@ -105,12 +118,15 @@ void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 	env->img = im;
 	ft_envzero(env);
 	ft_argscheck(argc, argv, env);
+	
 	env->maxiter = MAXITER;
 	env->color = DEFCOLOR;
 	env->rn_min = MIN_RN;
 	env->rn_max = MAX_RN;
 	env->in_min = MIN_IN;
 	env->in_max = MAX_IN;
+	env->mouse_x = WIN_W / 2;
+	env->mouse_y = WIN_H / 2;
 	env->mlx = mlx_init();
 	env->iterstep = 255 / MAXITER;
 	if (env->mlx == NULL)
@@ -143,6 +159,30 @@ int	ft_itercalc(t_env *env)
 		if (z_re2 + z_im2 > 4)
 			return (i);
 		z_im = 2 * z_re * z_im + env->in;
+		z_re = z_re2 - z_im2 + env->rn;
+		++i;
+	}
+	return (0);
+}
+
+int	ft_burningship_itercalc(t_env *env)
+{
+	double	z_re;
+	double	z_im;
+	double	z_re2;
+	double	z_im2;
+	int		i;
+
+	i = 0;
+	z_re = env->rn;
+	z_im = env->in;
+	while (i < MAXITER)
+	{
+		z_re2 = z_re * z_re;
+		z_im2 = z_im * z_im;
+		if (z_re2 + z_im2 > 4)
+			return (i);
+		z_im = fabs(2 * z_re * z_im) + env->in;
 		z_re = z_re2 - z_im2 + env->rn;
 		++i;
 	}
@@ -194,6 +234,8 @@ void	ft_fractal(t_env *env)
 	return ;
 }
 
+
+
 int	main(int argc, char **argv)
 {
 	t_env	env;
@@ -204,7 +246,7 @@ int	main(int argc, char **argv)
 	
 	ft_envinit(&env, &img, argc, argv);
 	
-	// ft_fractalinit(&env);
+	// ft_render(&env);
 	ft_fractal(&env);
 
 	mlx_hook(env.win, BTN_X, 0, ft_x_close, &env);

@@ -15,6 +15,7 @@
 # include "mlx.h"
 # include "../libft/libft.h"
 # include <stdio.h> // PRINTF
+# include <math.h>
 
 // GENERAL VALUES DEFINITIONS
 	// mlx window width
@@ -162,6 +163,7 @@ int		ft_x_close(t_env *env);
 int		mouse_handler(int evnt, int x, int y, void *params);
 int		kb_handler(int keycode, void *params);
 int		ft_rgb2int(int r, int g, int b);
+
 
 #endif
 
