@@ -22,9 +22,13 @@ NAME	:=	fractol
 #		FILES
 
 SRCS	:=	fractol.c \
+			f_burningship.c \
+			f_mandelbrot.c \
+			f_julia.c \
 			exit.c \
-			handle_mouse.c
-#			utils_mlx.c
+			handle_mouse.c \
+			utils.c \
+			initialize.c
 
 #-------------------------------------------------------------------------------
 #		COLORS

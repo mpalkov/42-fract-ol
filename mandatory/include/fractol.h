@@ -163,13 +163,20 @@ typedef struct	s_env
 # define M_RCLICK 2
 
 void	ft_render(t_env *env);
-//void	ft_mandelbrot(t_env *env);
+void	ft_mandelbrot(t_env *env);
+void	ft_julia(t_env *env);
+void	ft_burningship(t_env *env);
+
 void	ft_exit(int err, t_env *env);
 int		ft_x_close(t_env *env);
 int		mouse_handler(int evnt, int x, int y, void *params);
 int		kb_handler(int keycode, void *params);
 int		ft_rgb2int(int r, int g, int b);
-
+int		ft_set_f_type(char *str, t_env *env);
+int		ft_set_f_type(char *str, t_env *env);
+void	ft_envzero(t_env *env);
+void	ft_envinit(t_env *env, t_img *im, int argc, char **argv);
+void	ft_mlx_frpix(int x, int y, int itr, t_env *env);
 
 #endif
 
