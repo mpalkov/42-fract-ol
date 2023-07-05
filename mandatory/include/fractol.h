@@ -30,6 +30,9 @@
 # define MIN_IN (double)-1.2
 // # define MAX_IN (double)1.2
 # define MAX_IN (MIN_IN + (MAX_RN - MIN_RN) * WIN_H / WIN_W)
+//set default starting point for Julia
+# define JULIA_RN (double)-0.7
+# define JULIA_IN (double)0.27015
 	// max iterations default value;
 # define MAXITER 45
 	//iterstep = 256 / maxiter | Has to be 8bits (int 0-255) or less so it will not overflow.
@@ -119,6 +122,8 @@ typedef struct	s_env
 	double	rn_max;
 	double	in_min;
 	double	in_max;
+	double	julia_rn_c;
+	double	julia_in_c;
 }				t_env;
 
 # define KB_TAB 48
@@ -157,7 +162,8 @@ typedef struct	s_env
 # define M_LCLICK 1
 # define M_RCLICK 2
 
-void	ft_fractal(t_env *env);
+void	ft_render(t_env *env);
+//void	ft_mandelbrot(t_env *env);
 void	ft_exit(int err, t_env *env);
 int		ft_x_close(t_env *env);
 int		mouse_handler(int evnt, int x, int y, void *params);

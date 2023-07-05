@@ -36,15 +36,21 @@ void	ft_zoom(int keycode, double x_part, double y_part, t_env *env)
 	return ;
 }
 
+/*For julia: x = <-3, 3>; y = <-3, 3> -> len = 6 */
 int	mouse_handler(int keycode, int x, int y, void *params)
 {
 	t_env	*env;
 
 	env = params;
-	
-	if (keycode == M_WHEELDN || keycode == M_WHEELUP)
+
+	if (keycode == M_LCLICK && env->fr_type == JULIA)
+	{
+		env->julia_rn_c = -3 + 6 * (double)x / WIN_W;
+		env->julia_in_c = -3 + 6 * (double)y / WIN_H;
+	}
+	else if (keycode == M_WHEELDN || keycode == M_WHEELUP)
 		ft_zoom(keycode, (double)x / WIN_W, (double)y / WIN_H, env);
-	ft_fractal(env);
+	ft_render(env);
 	return (0);
 }
 
@@ -71,7 +77,7 @@ void	ft_move(int keycode, t_env *env)
 		env->in_min += MOVE_STEP * env->in_factor;
 		env->in_max += MOVE_STEP * env->in_factor;
 	}
-	ft_fractal(env);
+	ft_render(env);
 	return ;
 }
 
@@ -130,7 +136,7 @@ int	kb_handler(int keycode, void *params)
 		ft_move(keycode, env);
 	else if (keycode >= KB_NUM0 && keycode <= KB_NUM9)
 		ft_colorshift(keycode, env);
-	ft_fractal(env);
+	ft_render(env);
 	ft_printf("key pressed: %d\n", keycode);
 	return (0);
 }

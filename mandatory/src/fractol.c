@@ -96,6 +96,7 @@ void	ft_argscheck(int ac, char **av, t_env *env)
 		ft_exit(NOARGS, env);
 	return ;
 }
+
 void	ft_fractalinit(t_env *env)
 {
 	if (env->fr_type == MANDELBROT)
@@ -125,8 +126,8 @@ void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 	env->rn_max = MAX_RN;
 	env->in_min = MIN_IN;
 	env->in_max = MAX_IN;
-	env->mouse_x = WIN_W / 2;
-	env->mouse_y = WIN_H / 2;
+	env->julia_rn_c = JULIA_RN;
+	env->julia_in_c = JULIA_IN;
 	env->mlx = mlx_init();
 	env->iterstep = 255 / MAXITER;
 	if (env->mlx == NULL)
@@ -189,6 +190,87 @@ int	ft_burningship_itercalc(t_env *env)
 	return (0);
 }
 
+void	ft_burningship(t_env *env)
+{
+	int	x;
+	int	y;
+	int	itr;
+
+	itr = 0;
+	env->rn_factor = (env->rn_max - env->rn_min) / WIN_W;
+	env->in_factor = (env->in_max - env->in_min) / WIN_H;
+	y = 0;
+	while (y < WIN_H)
+	{
+		x = 0;
+		while (x < WIN_W)
+		{
+			env->rn = env->rn_min + (double)x * env->rn_factor;
+			env->in = env->in_min + (double)y * env->in_factor;
+			itr = ft_burningship_itercalc(env);
+			ft_mlx_frpix(x, y, itr, env);
+			++x;
+		}
+		++y;
+	}
+	mlx_put_image_to_window(env->mlx, env->win, env->img->img, 0, 0);
+	return ;
+}
+
+// for julia, I use env->rn_factor and in_factor as the constant parts.
+int	ft_julia_itercalc(t_env *env)
+{
+	
+	double	z_re;
+	double	z_im;
+	double	z_re2;
+	double	z_im2;
+	int		i;
+
+	i = 0;
+	z_re = env->rn;
+	z_im = env->in;
+	while (i < MAXITER)
+	{
+		z_re2 = z_re * z_re;
+		z_im2 = z_im * z_im;
+		if (z_re2 + z_im2 > 4)
+			return (i);
+		z_im = 2 * z_re * z_im + env->julia_in_c;
+		z_re = z_re2 - z_im2 + env->julia_rn_c;
+		++i;
+	}
+	return (0);
+}
+
+void	ft_julia(t_env *env)
+{
+	int		x;
+	int		y;
+	double	rn_constant;
+	double	in_constant;
+	int		itr;
+
+	env->rn_factor = (env->rn_max - env->rn_min) / WIN_W;
+	env->in_factor = (env->in_max - env->in_min) / WIN_H;
+	y = 0;
+	while (y < WIN_H)
+	{
+		x = 0;
+		while (x < WIN_W)
+		{
+			env->rn = env->rn_min + (double)x * env->rn_factor;
+			env->in = env->in_min + (double)y * env->in_factor;
+			itr = ft_julia_itercalc(env);
+			ft_mlx_frpix(x, y, itr, env);
+			++x;
+		}
+		++y;
+	}
+	mlx_put_image_to_window(env->mlx, env->win, env->img->img, 0, 0);
+	return ;
+}
+
 // calculate the real and imaginary nbrs:
 // c_re = MinRe + x*(MaxRe-MinRe)/(ImageWidth-1);
 // c_im = MaxIm - y*(MaxIm-MinIm)/(ImageHeight-1);
@@ -207,7 +289,7 @@ int	ft_burningship_itercalc(t_env *env)
 // However, from mathematics we know that we can simplify that to:
 //             if(Z_re*Z_re + Z_im*Z_im > 4)
 
-void	ft_fractal(t_env *env)
+void	ft_mandelbrot(t_env *env)
 {
 	int		x;
 	int		y;
@@ -234,7 +316,16 @@ void	ft_fractal(t_env *env)
 	return ;
 }
 
-
+void	ft_render(t_env *env)
+{
+	if (env->fr_type == MANDELBROT)
+		ft_mandelbrot(env);
+	else if (env->fr_type == JULIA)
+		ft_julia(env);
+	else if (env->fr_type == BURNINGSHIP)
+		ft_burningship(env);
+	return ;
+}
 
 int	main(int argc, char **argv)
 {
@@ -246,8 +337,8 @@ int	main(int argc, char **argv)
 	
 	ft_envinit(&env, &img, argc, argv);
 	
-	// ft_render(&env);
-	ft_fractal(&env);
+	ft_render(&env);
+	//ft_fractal(&env);
 
 	mlx_hook(env.win, BTN_X, 0, ft_x_close, &env);
 	mlx_key_hook(env.win, kb_handler, &env);
