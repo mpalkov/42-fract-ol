@@ -14,7 +14,7 @@
 # define FRACTOL_H
 # include "mlx.h"
 # include "../libft/libft.h"
-# include <stdio.h> // PRINTF
+# include <stdio.h>
 # include <math.h>
 
 // GENERAL VALUES DEFINITIONS
@@ -28,15 +28,16 @@
 # define MIN_RN (double)-2
 # define MAX_RN (double)1
 # define MIN_IN (double)-1.2
-// # define MAX_IN (double)1.2
-# define MAX_IN (MIN_IN + (MAX_RN - MIN_RN) * WIN_H / WIN_W)
-//set default starting point for Julia
-# define JULIA_RN (double)-0.7
-# define JULIA_IN (double)0.27015
+// MAX_IN calculated in programm, because of norm conflict putting various
+//		values in a single line of define.
+// # define MAX_IN (MIN_IN + (MAX_RN - MIN_RN) * WIN_H / WIN_W)
+	//set default starting point for Julia
+# define JULIA_RN (double)-0.757500
+# define JULIA_IN (double)-0.292500
 	// max iterations default value;
 # define MAXITER 45
-	//iterstep = 256 / maxiter | Has to be 8bits (int 0-255) or less so it will not overflow.
-	
+	//iterstep = 256 / maxiter | Has to be 8bits (int 0-255) or less
+	// so it will not overflow.
 # define DEFCOLOR 0x00FF0000
 # define ZOOM_STEP (double)1.1
 # define MOVE_STEP (double)80
@@ -66,8 +67,7 @@
 # define MLXMSG "mlx error."
 # define INITMSG "initialization error."
 
-
-enum errs
+enum e_errs
 {
 	OK,
 	NOARGS,
@@ -78,29 +78,30 @@ enum errs
 	INITERR
 };
 
-enum fractls
+enum e_fractls
 {
 	MANDELBROT = 1,
 	JULIA,
 	BURNINGSHIP
 };
 
-typedef struct	s_img
+//	line_bytes is in bytes (int = 4 bytes)
+typedef struct s_img
 {
 	void	*img;
 	char	*address;
 	int		bits_per_pixel;
-	int		line_bytes; //in bytes (int = 4 bytes)
+	int		line_bytes;
 	int		endian;
 }				t_img;
 
-typedef struct	s_cnum
+typedef struct s_cnum
 {
 	double	re;
 	double	im;
 }				t_cnum;
 
-typedef struct	s_env
+typedef struct s_env
 {
 	void	*mlx;
 	void	*win;
@@ -173,32 +174,9 @@ int		mouse_handler(int evnt, int x, int y, void *params);
 int		kb_handler(int keycode, void *params);
 int		ft_rgb2int(int r, int g, int b);
 int		ft_set_f_type(char *str, t_env *env);
-int		ft_set_f_type(char *str, t_env *env);
 void	ft_envzero(t_env *env);
 void	ft_envinit(t_env *env, t_img *im, int argc, char **argv);
 void	ft_mlx_frpix(int x, int y, int itr, t_env *env);
-
-#endif
-
-/*
- ______              _   _       _ 
-|  ____|            | | ( )     | |
-| |__ _ __ __ _  ___| |_|/  ___ | |
-|  __| '__/ _` |/ __| __|  / _ \| |
-| |  | | | (_| | (__| |_  | (_) | |
-|_|  |_|  \__,_|\___|\__|  \___/|_|
-By: mpalkov@student.42barcelona.com
-
-
-	write(1, " ____________________________________________________ \n", 55);
-	write(1, "|     This program requires an argument on input.    |\n", 55);
-	write(1, "|    Write one of these options as prog. argument:   |\n", 55);
-	          |____________________________________________________|\n"
-	write(1, "|                 1   or   Mandelbrot                |\n", 55);
-	write(1, "|                 2   or   Julia                     |\n", 55);
-	write(1, "|                 3   or   BurningShip               |\n", 55);
-	write(1, "|____________________________________________________|\n", 55);
-*/	
 
 # define KB_TAB 48
 # define KB_ESC 53
@@ -223,3 +201,25 @@ By: mpalkov@student.42barcelona.com
 # define M_WHEELDN 4
 # define M_LCLICK 1
 # define M_RCLICK 2
+
+#endif
+
+/*
+ ______              _   _       _ 
+|  ____|            | | ( )     | |
+| |__ _ __ __ _  ___| |_|/  ___ | |
+|  __| '__/ _` |/ __| __|  / _ \| |
+| |  | | | (_| | (__| |_  | (_) | |
+|_|  |_|  \__,_|\___|\__|  \___/|_|
+By: mpalkov@student.42barcelona.com
+
+
+	write(1, " ____________________________________________________ \n", 55);
+	write(1, "|     This program requires an argument on input.    |\n", 55);
+	write(1, "|    Write one of these options as prog. argument:   |\n", 55);
+	          |____________________________________________________|\n"
+	write(1, "|                 1   or   Mandelbrot                |\n", 55);
+	write(1, "|                 2   or   Julia                     |\n", 55);
+	write(1, "|                 3   or   BurningShip               |\n", 55);
+	write(1, "|____________________________________________________|\n", 55);
+*/	

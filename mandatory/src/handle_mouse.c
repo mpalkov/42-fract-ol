@@ -31,18 +31,18 @@ void	ft_zoom(int keycode, double x_part, double y_part, t_env *env)
 		env->rn_min -= ((x_len * ZOOM_STEP) - x_len) * x_part;
 		env->rn_max += ((x_len * ZOOM_STEP) - x_len) * (1 - x_part);
 		env->in_min -= ((y_len * ZOOM_STEP) - y_len) * y_part;
-		env->in_max += ((y_len * ZOOM_STEP) - y_len) * (1 - y_part);	
+		env->in_max += ((y_len * ZOOM_STEP) - y_len) * (1 - y_part);
 	}
 	return ;
 }
 
-/*For julia: x = <-3, 3>; y = <-3, 3> -> len = 6 */
+// For julia: x = <-3, 3>; y = <-3, 3> -> len = 6
+//		printf("rnc: %f\ninc: %f\n", env->julia_rn_c, env->julia_in_c);
 int	mouse_handler(int keycode, int x, int y, void *params)
 {
 	t_env	*env;
 
 	env = params;
-
 	if (keycode == M_LCLICK && env->fr_type == JULIA)
 	{
 		env->julia_rn_c = -3 + 6 * (double)x / WIN_W;
@@ -65,7 +65,6 @@ void	ft_move(int keycode, t_env *env)
 	{
 		env->rn_min -= MOVE_STEP * env->rn_factor;
 		env->rn_max -= MOVE_STEP * env->rn_factor;
-		
 	}
 	else if (keycode == KB_UP || keycode == KB_W)
 	{
@@ -81,31 +80,34 @@ void	ft_move(int keycode, t_env *env)
 	return ;
 }
 
+//		keys 789 add COLOR_STEP to channel R, G, or B respectively
+//		keys 456 subtract ---||---
+//			ft_printf("env->color: %x\n", env->color);
 void	ft_colorshift(int keycode, t_env *env)
 {
-	int color = env->color;
-	
-	int	r = (UCHR)(color >> 16);
-	int	g = (UCHR)(color >> 8);
-	int	b = (UCHR)color;
+	int	r;
+	int	g;
+	int	b;
 
-	if (keycode == KB_NUM9) // rgB+
+	r = (UCHR)(env->color >> 16);
+	g = (UCHR)(env->color >> 8);
+	b = (UCHR)env->color;
+	if (keycode == KB_NUM9)
 		env->color = ft_rgb2int(r, g, b + COLOR_STEP);
-	else if (keycode == KB_NUM6) // rgB-
+	else if (keycode == KB_NUM6)
 		env->color = ft_rgb2int(r, g, b - COLOR_STEP);
-	else if (keycode == KB_NUM8) // rGb+
+	else if (keycode == KB_NUM8)
 		env->color = ft_rgb2int(r, g + COLOR_STEP, b);
-	else if (keycode == KB_NUM5) // rGb-
+	else if (keycode == KB_NUM5)
 		env->color = ft_rgb2int(r, g - COLOR_STEP, b);
-	else if (keycode == KB_NUM7) // Rgb+
+	else if (keycode == KB_NUM7)
 		env->color = ft_rgb2int(r + COLOR_STEP, g, b);
-	else if (keycode == KB_NUM4) // Rgb-
+	else if (keycode == KB_NUM4)
 		env->color = ft_rgb2int(r - COLOR_STEP, g, b);
-	
-	ft_printf("env->color: %x\n", env->color);
 	return ;
 }
 
+//		ft_printf("key pressed: %d\n", keycode);
 int	kb_handler(int keycode, void *params)
 {
 	t_env	*env;
@@ -120,6 +122,5 @@ int	kb_handler(int keycode, void *params)
 	else if (keycode >= KB_NUM0 && keycode <= KB_NUM9)
 		ft_colorshift(keycode, env);
 	ft_render(env);
-	ft_printf("key pressed: %d\n", keycode);
 	return (0);
 }

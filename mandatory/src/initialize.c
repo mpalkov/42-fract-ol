@@ -53,7 +53,8 @@ void	ft_argscheck(int ac, char **av, t_env *env)
 }
 
 // MLX LEAKS - mlx_init(); causes this leak:
-// 		1 (48 bytes) ROOT LEAK: <CFString 0x7f8c61725fb0> [48]  length: 26  "Copyright Apple Inc., 2019"
+// 		1 (48 bytes) ROOT LEAK: <CFString 0x7f8c61725fb0> [48]  length: 26
+//		"Copyright Apple Inc., 2019"
 void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 {
 	if (!env || !im)
@@ -61,13 +62,12 @@ void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 	env->img = im;
 	ft_envzero(env);
 	ft_argscheck(argc, argv, env);
-	
 	env->maxiter = MAXITER;
 	env->color = DEFCOLOR;
 	env->rn_min = MIN_RN;
 	env->rn_max = MAX_RN;
 	env->in_min = MIN_IN;
-	env->in_max = MAX_IN;
+	env->in_max = env->in_min + (env->rn_max - env->rn_min) * (WIN_H / WIN_W);
 	env->julia_rn_c = JULIA_RN;
 	env->julia_in_c = JULIA_IN;
 	env->mlx = mlx_init();
@@ -78,7 +78,7 @@ void	ft_envinit(t_env *env, t_img *im, int argc, char **argv)
 	im->img = mlx_new_image(env->mlx, WIN_W, WIN_H);
 	if (env->win == NULL || env->img == NULL)
 		ft_exit(MLXERR, env);
-	im->address = mlx_get_data_addr(im->img, &im->bits_per_pixel, &im->line_bytes, &im->endian);
-
+	im->address = mlx_get_data_addr(im->img, &im->bits_per_pixel, \
+		&im->line_bytes, &im->endian);
 	return ;
 }

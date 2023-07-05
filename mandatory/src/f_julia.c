@@ -15,7 +15,6 @@
 // for julia, I use env->rn_factor and in_factor as the constant parts.
 int	ft_julia_itercalc(t_env *env)
 {
-	
 	double	z_re;
 	double	z_im;
 	double	z_re2;
