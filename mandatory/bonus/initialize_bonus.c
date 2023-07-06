@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   initialize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpalkov <mpalkov@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "fractol_mandatory.h"
+#include "fractol_bonus.h"
 
 int	ft_set_f_type(char *str, t_env *env)
 {
@@ -22,6 +22,8 @@ int	ft_set_f_type(char *str, t_env *env)
 		env->fr_type = MANDELBROT;
 	else if (ft_strcmp(str, "julia") == 0 || ft_strcmp(str, "2") == 0)
 		env->fr_type = JULIA;
+	else if (ft_strcmp(str, "burningship") == 0 || ft_strcmp(str, "3") == 0)
+		env->fr_type = BURNINGSHIP;
 	else
 		return (0);
 	return (1);

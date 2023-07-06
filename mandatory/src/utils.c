@@ -14,7 +14,7 @@
 
 //	endian == 1 (ARGB)
 //	endian == 0 (BGRA)
-int	ft_mlx_putpix(int x, int y, int color, t_env *env)
+static int	ft_mlx_putpix(int x, int y, int color, t_env *env)
 {
 	int		pixel;
 	char	*buffer;

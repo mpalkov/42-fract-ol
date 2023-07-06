@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   f_julia.c                                          :+:      :+:    :+:   */
+/*   f_burningship_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpalkov <mpalkov@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 14:21:24 by mpalkov           #+#    #+#             */
-/*   Updated: 2023/07/05 14:21:28 by mpalkov          ###   ########.fr       */
+/*   Created: 2023/07/05 14:20:59 by mpalkov           #+#    #+#             */
+/*   Updated: 2023/07/05 14:21:10 by mpalkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "fractol_bonus.h"
 
-// for julia, I use env->rn_factor and in_factor as the constant parts.
-int	ft_julia_itercalc(t_env *env)
+int	ft_burningship_itercalc(t_env *env)
 {
 	double	z_re;
 	double	z_im;
@@ -30,19 +30,20 @@ int	ft_julia_itercalc(t_env *env)
 		z_im2 = z_im * z_im;
 		if (z_re2 + z_im2 > 4)
 			return (i);
-		z_im = 2 * z_re * z_im + env->julia_in_c;
-		z_re = z_re2 - z_im2 + env->julia_rn_c;
+		z_im = fabs(2 * z_re * z_im) + env->in;
+		z_re = z_re2 - z_im2 + env->rn;
 		++i;
 	}
 	return (0);
 }
 
-void	ft_julia(t_env *env)
+void	ft_burningship(t_env *env)
 {
-	int		x;
-	int		y;
-	int		itr;
+	int	x;
+	int	y;
+	int	itr;
 
+	itr = 0;
 	env->rn_factor = (env->rn_max - env->rn_min) / WIN_W;
 	env->in_factor = (env->in_max - env->in_min) / WIN_H;
 	y = 0;
@@ -53,7 +54,7 @@ void	ft_julia(t_env *env)
 		{
 			env->rn = env->rn_min + (double)x * env->rn_factor;
 			env->in = env->in_min + (double)y * env->in_factor;
-			itr = ft_julia_itercalc(env);
+			itr = ft_burningship_itercalc(env);
 			ft_mlx_frpix(x, y, itr, env);
 			++x;
 		}

@@ -18,14 +18,26 @@ endif
 
 NAME	:=	fractol
 
+NAME_BNS:=	fractol
+
 #-------------------------------------------------------------------------------
 #		FILES
 
 SRCS	:=	fractol.c \
+			f_burningship.c \
 			f_mandelbrot.c \
 			f_julia.c \
 			exit.c \
 			handlers.c \
+			utils.c \
+			initialize.c
+
+SRCS_BNS:=	fractol.c \
+			f_burningship_bonus.c \
+			f_mandelbrot.c \
+			f_julia.c \
+			exit.c \
+			handlers_bonus.c \
 			utils.c \
 			initialize.c
 
@@ -80,11 +92,17 @@ MLX			:=	$(MLX_DIR)/libmlx.a
 
 OBJS		:=	$(addprefix $(OBJ_DIR),$(SRCS:.c=.o))
 
+OBJS_BNS	:=	$(addprefix $(OBJ_DIR),$(SRCS_BNS:.c=.o))
+
 DEPS		:=	$(addsuffix .d,$(basename $(OBJS)))
+
+DEPS_BNS	:=	$(addsuffix .d,$(basename $(OBJS_BNS)))
 
 INCLUDE		:=	-Ilibft/ -Imlx/ -Iinclude/
 
 all: make_libft make_mlx $(NAME)
+
+bonus: make_libft make_mlx $(NAME_BNS)
 
 make_libft:
 	@echo "$(GREEN) Calling libft make$(DEFCOLOR)"
@@ -101,9 +119,16 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 -include $(DEPS)
 
+-include $(DEPS_BNS)
+
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "Creating binary $@"
 	$(CC) $(CFLAGS) $(MLXFLAGS) $(INCLUDE) $(OBJS) -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -o $@
+	@echo "$(GREEN)	ALL DONE$(DEFCOLOR)"
+
+$(NAME_BNS): $(OBJS_BNS) $(LIBFT)
+	@echo "Creating bonus binary $@"
+	$(CC) $(CFLAGS) $(MLXFLAGS) $(INCLUDE) $(OBJS_BNS) -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -o $@
 	@echo "$(GREEN)	ALL DONE$(DEFCOLOR)"
 
 clean:

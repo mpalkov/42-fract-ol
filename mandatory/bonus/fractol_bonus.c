@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   fractol_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpalkov <mpalkov@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "fractol_mandatory.h"
+#include "fractol_bonus.h"
 
 void	ft_render(t_env *env)
 {
@@ -19,6 +19,8 @@ void	ft_render(t_env *env)
 		ft_mandelbrot(env);
 	else if (env->fr_type == JULIA)
 		ft_julia(env);
+	else if (env->fr_type == BURNINGSHIP)
+		ft_burningship(env);
 	return ;
 }
 

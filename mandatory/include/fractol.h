@@ -40,7 +40,6 @@
 	// so it will not overflow.
 # define DEFCOLOR 0x00FF0000
 # define ZOOM_STEP (double)1.1
-# define MOVE_STEP (double)80
 # define COLOR_STEP 25
 
 # define UCHR unsigned char
@@ -53,15 +52,6 @@
 | |  | | | (_| | (__| |_  | (_) | |\n\
 |_|  |_|  \\__,_|\\___|\\__|  \\___/|_|\n\
                       [By: mpalkov]\n\n"
-# define NOARGSMSG "\
- ____________________________________________________ \n\
-|     This program requires an argument on input.    |\n\
-|    Write one of these options as prog. argument:   |\n\
-|____________________________________________________|\n\
-|                1   or   Mandelbrot                 |\n\
-|                2   or   Julia                      |\n\
-|                3   or   BurningShip                |\n\
-|____________________________________________________|\n\n"
 # define WRITEMSG "writing error."
 # define MALLOCMSG "malloc error."
 # define MLXMSG "mlx error."
@@ -76,13 +66,6 @@ enum e_errs
 	MALLOCERR,
 	MLXERR,
 	INITERR
-};
-
-enum e_fractls
-{
-	MANDELBROT = 1,
-	JULIA,
-	BURNINGSHIP
 };
 
 //	line_bytes is in bytes (int = 4 bytes)
@@ -166,7 +149,6 @@ typedef struct s_env
 void	ft_render(t_env *env);
 void	ft_mandelbrot(t_env *env);
 void	ft_julia(t_env *env);
-void	ft_burningship(t_env *env);
 
 void	ft_exit(int err, t_env *env);
 int		ft_x_close(t_env *env);
