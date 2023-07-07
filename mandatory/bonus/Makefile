@@ -16,7 +16,7 @@ ifeq ($(MODE),debug)
 	CFLAGS	+= -g3
 endif
 
-NAME	:=	fractol
+NAME	:=	../fractol
 
 #-------------------------------------------------------------------------------
 #		FILES
@@ -82,45 +82,39 @@ LIBFT		:=	$(LIBFT_DIR)/libft.a
 
 MLX			:=	$(MLX_DIR)/libmlx.a
 
-OBJS		=	$(addprefix $(OBJ_DIR),$(SRCS:.c=.o))
+OBJS		=	$(addprefix $(OBJ_DIR),$(notdir $(SRCS:.c=.o)))
 
 OBJS		+=	$(addprefix $(OBJ_DIR),$(SRCS_BNS:.c=.o))
 
 DEPS		:=	$(addsuffix .d,$(basename $(OBJS)))
 
-DEPS_BNS	:=	$(addsuffix .d,$(basename $(OBJS_BNS)))
-
-INCLUDE		:=	-Ilibft/ -Imlx/ -Iinclude/
+INCLUDE		:=	-I../libft/ -I../mlx/ -I../include/
 
 all: make_libft make_mlx $(NAME)
 
-bonus: make_libft make_mlx $(NAME_BNS)
-
 make_libft:
 	@echo "$(GREEN) Calling libft make$(DEFCOLOR)"
-	$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -sC $(LIBFT_DIR)
 
 make_mlx:
 	@echo "$(GREEN) Calling mlx make$(DEFCOLOR)"
-	$(MAKE) -C $(MLX_DIR)
+	$(MAKE) -sC $(MLX_DIR)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(SRC_BNS_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	@echo "$(GREEN) Compiling: $< -> $@$(DEFCOLOR)"
+
+$(OBJ_DIR)%.o: $(SRC_BNS_DIR)%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@echo "$(GREEN) Compiling: $< -> $@$(DEFCOLOR)"
 
 -include $(DEPS)
 
--include $(DEPS_BNS)
-
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "Creating binary $@"
-	$(CC) $(CFLAGS) $(MLXFLAGS) $(INCLUDE) $(OBJS) -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -o $@
-	@echo "$(GREEN)	ALL DONE$(DEFCOLOR)"
-
-$(NAME_BNS): $(OBJS_BNS) $(LIBFT)
-	@echo "Creating bonus binary $@"
-	$(CC) $(CFLAGS) $(MLXFLAGS) $(INCLUDE) $(OBJS_BNS) -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -o $@
+	@$(CC) $(CFLAGS) $(MLXFLAGS) $(INCLUDE) $(OBJS) -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -o $@
 	@echo "$(GREEN)	ALL DONE$(DEFCOLOR)"
 
 clean:

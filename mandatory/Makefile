@@ -54,6 +54,8 @@ OBJ_DIR		:=	.obj/
 
 SRC_DIR		:=	src/
 
+BNS_DIR		:=	bonus/
+
 #-------------------------------------------------------------------------------
 #		COMMANDS
 
@@ -86,13 +88,16 @@ INCLUDE		:=	-Ilibft/ -Imlx/ -Iinclude/
 
 all: make_libft make_mlx $(NAME)
 
+bonus:
+	$(MAKE) -C $(BNS_DIR)
+
 make_libft:
 	@echo "$(GREEN) Calling libft make$(DEFCOLOR)"
-	$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -sC $(LIBFT_DIR)
 
 make_mlx:
 	@echo "$(GREEN) Calling mlx make$(DEFCOLOR)"
-	$(MAKE) -C $(MLX_DIR)
+	$(MAKE) -sC $(MLX_DIR)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
@@ -103,15 +108,17 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "Creating binary $@"
-	$(CC) $(CFLAGS) $(MLXFLAGS) $(INCLUDE) $(OBJS) -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -o $@
+	@$(CC) $(CFLAGS) $(MLXFLAGS) $(INCLUDE) $(OBJS) -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -o $@
 	@echo "$(GREEN)	ALL DONE$(DEFCOLOR)"
 
 clean:
 	@echo "$(ORANGE)	Cleaning residual .o and .d files$(DEFCOLOR)"
+	$(RM) -r $(OBJ_DIR)
+	@echo "$(ORANGE)	Libft clean$(DEFCOLOR)"
 	$(MAKE) clean -sC $(LIBFT_DIR)
 	@echo "$(ORANGE)	Mlx clean$(DEFCOLOR)"
 	$(MAKE) clean -sC $(MLX_DIR)
-	$(RM) -r $(OBJ_DIR)
+	
 
 fclean: clean
 	@echo "$(ORANGE)	Cleaning main binary files$(DEFCOLOR)"
@@ -123,4 +130,4 @@ re:
 	$(MAKE) fclean
 	$(MAKE) all
 
-.PHONY:	all, clean, fclean, re
+.PHONY:	all, clean, fclean, re, bonus

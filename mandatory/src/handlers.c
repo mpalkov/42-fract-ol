@@ -50,7 +50,7 @@ int	mouse_handler(int keycode, int x, int y, void *params)
 		env->julia_in_c = -3 + 6 * (double)y / WIN_H;
 	}
 	else if (keycode == M_WHEELDN || keycode == M_WHEELUP)
-		ft_zoom(keycode, WIN_W / 2, WIN_H / 2, env);
+		ft_zoom(keycode, (double)0.5, (double)0.5, env);
 	ft_render(env);
 	return (0);
 }
